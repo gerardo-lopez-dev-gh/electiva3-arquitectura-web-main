@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+.custom-input{
+    border-width: 2px; 
+    border-radius: 10px;
+
+}
+.custom-input:focus{
+    border-color: #2D8A7E !important; /* Cambia el color del borde al seleccionar el input */
+    border-width: 2px !important;
+    box-shadow: none !important; /* Puedes agregar un efecto de sombra si lo deseas */
+}
+.custom-input-label{
+    font-weight: bolder !important;
+    color: #344B47 !important;
+    font-size: 1.5rem !important;
+}
+
+
+.btn-outline-primary{
+    box-shadow: none !important;
+    border-color: #2D8A7E !important; 
+    font-weight: bolder !important;
+    color: #2D8A7E !important;
+}
+
+.btn-outline-primary:hover {
+    color: var(--bs-btn-hover-color) !important;
+    background-color: #2D8A7E!important;
+    border-color: #2D8A7E !important;
+}
+
+.btn-primary{
+    box-shadow: none !important;
+    background-color: #2D8A7E !important;
+    border-color: #2D8A7E !important; 
+    font-weight: bolder !important;
+    color: white !important;
+}
+
+.btn-primary:hover{
+    background-color: white;
+}
+
+

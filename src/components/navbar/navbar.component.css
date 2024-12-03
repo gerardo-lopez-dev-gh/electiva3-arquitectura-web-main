@@ -1,0 +1,22 @@
+*{
+    font-family: 'Roboto Condensed'
+}
+.custom-navbar{
+    background-image: linear-gradient(to right, #2D8A7E, #2D8A7E, #2D8A7E, #2D8A7E,#2D8A7E);
+}
+.nav-item{
+    padding-right: 0rem;
+    padding-left: 3rem;
+    
+}
+.nav-link{
+    color:white;
+    font-weight: bold;
+}
+.custom-button{
+    font-weight: bolder;
+    color: #8056B0;
+    background-color: aliceblue;
+    border: 0px;
+    width: 6rem;
+}

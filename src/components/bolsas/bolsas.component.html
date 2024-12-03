@@ -1,0 +1,143 @@
+<div class="card">
+  <div class="card-body">
+    <h3>Bolsa de puntos</h3>
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <label for="custom-input" class="custom-input-label">Id de cliente</label>
+          <div class="custom-input">
+            <input type="text" class="form-control custom-input" id="documentoInput" placeholder="" [(ngModel)]="idCliente">
+          </div>
+        </div>
+        <div class="col-4">
+          <label for="custom-input" class="custom-input-label">Cantidad de días</label>
+          <div class="custom-input">
+            <input type="text" class="form-control custom-input" id="documentoInput" placeholder="" [(ngModel)]="dias">
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="col">
+        <button class="btn btn-primary" (click)="buscar(this.idCliente,this.dias)">Buscar</button>
+        <button class="btn btn-outline-primary" style="margin-left: 1rem;" (click)="abrirModalCreacion()" data-bs-toggle="modal" data-bs-target="#creacionModal">
+          Crear Bolsa
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 20 20">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <hr style="margin: 5px">
+    
+    <div class="container">
+      <div class="container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Cliente</th>
+              <th scope="col">Puntaje utilizado</th>
+              <th scope="col">Puntaje asignado</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let bolsa of bolsas">
+              <th scope="row">{{ bolsa.id }}</th>
+              <td>{{ bolsa.cliente.id }}</td>
+              <td>{{ bolsa.puntajeUtilizado }}</td>
+              <td>{{ bolsa.puntajeAsignado }}</td>
+              <td>
+                <div class="container-fluid px-0">
+                  <div class="row gx-0 justify-content-center">
+                    <div class="col-3 px-0">
+                      <button type="button" class="btn btn-outline-success" (click)="mostrarDetalles(bolsa)" data-bs-toggle="modal" data-bs-target="#detallesModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                          <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="col-3 px-0">
+                      <button type="button" class="btn btn-outline-danger" (click)="eliminarBolsa(bolsa.id)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                          <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Detalles -->
+  <div class="modal fade" id="detallesModal" tabindex="-1" aria-labelledby="detallesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detallesModalLabel">Detalle de Bolsa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="detalleId" [value]="bolsaSeleccionada?.id" readonly>
+                <label for="detalleId">ID</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="detalleCliente" [value]="bolsaSeleccionada?.cliente.id" readonly>
+                <label for="detalleCliente">Cliente</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="detalleFechaAsignacion" [value]="bolsaSeleccionada?.fechaAsignacion" readonly>
+                <label for="detalleFechaAsignacion">Fecha de Asignación</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="detallePuntajeAsignado" [value]="bolsaSeleccionada?.puntajeAsignado" readonly>
+                <label for="detallePuntajeAsignado">Puntaje Asignado</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="detallePuntajeUtilizado" [value]="bolsaSeleccionada?.puntajeUtilizado" readonly>
+                <label for="detallePuntajeUtilizado">Puntaje Utilizado</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Creación -->
+  <div class="modal fade" id="creacionModal" tabindex="-1" aria-labelledby="creacionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="creacionModalLabel">Crear Bolsa de Puntos</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="nuevoClienteId" [(ngModel)]="nuevoClienteId" placeholder="Id de Cliente">
+            <label for="nuevoClienteId">ID Cliente</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="nuevoPuntajeAsignado" [(ngModel)]="monto" placeholder="Puntaje Asignado">
+            <label for="nuevoPuntajeAsignado">Monto de la operación</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="crearBolsa()">Crear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

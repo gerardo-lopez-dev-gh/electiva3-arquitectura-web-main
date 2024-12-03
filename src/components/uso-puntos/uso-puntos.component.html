@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-body">
+        <h3>Uso de puntos</h3>
+        <hr>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-floating mb-3">
+                    <select class="form-select" aria-label="Cliente" [(ngModel)]="idCliente">
+                        <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nombre }}</option>
+                    </select>
+                    <label for="clienteSelect">Cliente</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="puntosInput" placeholder="Puntos a utilizar" [(ngModel)]="puntos">
+                    <label for="puntosInput">Puntos a utilizar</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="fechaInput" placeholder="Fecha de carga" [(ngModel)]="fechaCarga">
+                    <label for="fechaInput">Fecha de carga</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" aria-label="Concepto" [(ngModel)]="conceptoId">
+                        <option *ngFor="let concepto of conceptos" [value]="concepto.id">{{ concepto.descripcion }}</option>
+                    </select>
+                    <label for="conceptoSelect">Concepto</label>
+                </div>
+                <div class="container">
+                    <button class="btn btn-primary" (click)="confirmarUso()">CONFIRMAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
